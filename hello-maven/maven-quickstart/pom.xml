@@ -6,6 +6,7 @@
     <groupId>it.academy</groupId>
     <artifactId>maven-quickstart</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <developers>
         <developer>
             <name>Aliaksandr Veramkovich</name>
@@ -15,10 +16,32 @@
 
     <name>maven-quickstart</name>
 
+    <profiles>
+        <profile>
+            <id>jdk11</id>
+            <properties>
+                <maven.compiler.source>11</maven.compiler.source>
+                <maven.compiler.target>11</maven.compiler.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>jdk1.8</id>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>skipTest</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <maven.deploy.skip>true</maven.deploy.skip>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -27,6 +50,11 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
         </dependency>
     </dependencies>
 
