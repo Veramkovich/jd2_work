@@ -1,9 +1,6 @@
 package it.academy.data;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +14,38 @@ public class ProductSpecDaoImpl implements ProductSpecDao {
 
     @Override
     public void create(ProductSpec productSpec) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "insert into product_spec " +
+                        "(id, product_name, product_details, product_date) " +
+                        "values (?, ?, ?, ?)")) {
+            System.out.println(productSpec);
+            preparedStatement.setInt(1, productSpec.getId());
+            preparedStatement.setString(2, productSpec.getProductName());
+            preparedStatement.setString(3, productSpec.getProductDetails());
+            preparedStatement.setDate(4, productSpec.getProductDate());
+            System.out.println("create=" + preparedStatement.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Override
     public ProductSpec read(int id) {
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(
+                     "select * from product_spec where id=" + id)) {
+            resultSet.next();
+            ProductSpec product = new ProductSpec();
+            product.setId(resultSet.getInt("id"));
+            product.setProductDate(resultSet.getDate("product_date"));
+            product.setProductName(resultSet.getString("product_name"));
+            product.setProductDetails(resultSet.getString("product_details"));
+            return product;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
