@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 
-@WebServlet(name = "newProductServlet", urlPatterns = "/new-product")
+@WebServlet(name = "newProductServlet", urlPatterns = "/new-product.html")
 public class NewProductServlet extends HttpServlet {
 
     DaoFactory daoFactory;
