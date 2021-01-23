@@ -6,17 +6,15 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
-@FixMethodOrder
-public class PersonTest {
+public class PersonTest extends BaseTest {
 
     private SessionFactory factory;
 
@@ -52,8 +50,6 @@ public class PersonTest {
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
 
         //Then
@@ -62,11 +58,12 @@ public class PersonTest {
 
     @Test
     public void delete() {
-        //Given
-        Session session = factory.openSession();
-        Person person = session.get(Person.class, 1L);
+        //Given:
+        cleanInsert("PersonTest.xml");
 
-        //When
+        //When:
+        Session session = factory.openSession();
+        Person person = session.get(Person.class, 3L);
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
@@ -78,9 +75,26 @@ public class PersonTest {
             throw e;
         }
 
-        // Then
-        assertNull(session.get(Person.class, 1L));
+        // Then:
+        assertNull(session.get(Person.class, 3L));
         session.close();
+        deleteDataset();
+    }
+
+    @Test
+    public void query() {
+        //Given:
+        cleanInsert("PersonTest.xml");
+
+        //When:
+        Session session = factory.openSession();
+        List<Person> persons = session
+                .createQuery("from Person where secondName like 'Ivan%'", Person.class)
+                .list();
+
+        //Then:
+        assertEquals(1, persons.size());
+        deleteDataset();
     }
 
     @org.junit.After
@@ -88,3 +102,4 @@ public class PersonTest {
         factory.close();
     }
 }
+
