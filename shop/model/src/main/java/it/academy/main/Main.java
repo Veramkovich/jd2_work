@@ -22,7 +22,6 @@ public class Main {
                         .buildSessionFactory();
 
         Person person = new Person();
-        person.setId(1L);
         person.setName("Natalia");
         person.setSecondName("Ivanova");
         person.setDateOfBirth(Date.valueOf("1980-01-01"));

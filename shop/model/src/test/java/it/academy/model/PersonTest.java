@@ -1,11 +1,7 @@
 package it.academy.model;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Test;
 
 import java.io.Serializable;
@@ -16,27 +12,21 @@ import static org.junit.Assert.*;
 
 public class PersonTest extends BaseTest {
 
-    private SessionFactory factory;
-
-    @org.junit.Before
-    public void setUp() {
-        StandardServiceRegistry registry =
-                new StandardServiceRegistryBuilder()
-                        .configure("hibernate.cfg.test.xml")
-                        .build();
-        factory = new MetadataSources(registry)
-                .buildMetadata()
-                .buildSessionFactory();
-    }
-
     @Test
     public void create() {
         //Given
         Person person = new Person();
-        person.setId(1L);
         person.setName("Natalia");
         person.setSecondName("Ivanova");
         person.setDateOfBirth(Date.valueOf("1980-01-01"));
+        person.setStatus(Status.UPDATED);
+        person.setComments(new String[]{"Comment1", "Comment2"});
+
+        ShopUser shopUser = new ShopUser();
+        shopUser.setUserName("n_ivanova");
+        shopUser.setPassword("secret");
+
+        person.setShopUser(shopUser);
 
         //When
         Session session = factory.openSession();
@@ -46,6 +36,7 @@ public class PersonTest extends BaseTest {
             tx = session.beginTransaction();
             //do some work
             id = session.save(person);
+            session.save(shopUser);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) tx.rollback();
@@ -60,10 +51,11 @@ public class PersonTest extends BaseTest {
     public void delete() {
         //Given:
         cleanInsert("PersonTest.xml");
+        String uuid = "2c968187773a55a101773a55a3a10000";
 
         //When:
         Session session = factory.openSession();
-        Person person = session.get(Person.class, 3L);
+        Person person = session.get(Person.class, uuid);
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
@@ -76,7 +68,7 @@ public class PersonTest extends BaseTest {
         }
 
         // Then:
-        assertNull(session.get(Person.class, 3L));
+        assertNull(session.get(Person.class, uuid));
         session.close();
         deleteDataset();
     }
@@ -97,9 +89,5 @@ public class PersonTest extends BaseTest {
         deleteDataset();
     }
 
-    @org.junit.After
-    public void tearDown() {
-        factory.close();
-    }
 }
 

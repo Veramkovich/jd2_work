@@ -6,6 +6,10 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mysql.MySqlConnection;
 import org.dbunit.operation.DatabaseOperation;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,6 +25,25 @@ public abstract class BaseTest {
 
     private IDatabaseConnection connection;
     private IDataSet dataSet;
+
+    SessionFactory factory;
+
+    @org.junit.Before
+    public void setUp() {
+        StandardServiceRegistry registry =
+                new StandardServiceRegistryBuilder()
+                        .configure("hibernate.cfg.test.xml")
+                        .build();
+        factory = new MetadataSources(registry)
+                .buildMetadata()
+                .buildSessionFactory();
+    }
+
+    @org.junit.After
+    public void tearDown() {
+        factory.close();
+    }
+
 
     public void cleanInsert(String resourceName) {
         try {

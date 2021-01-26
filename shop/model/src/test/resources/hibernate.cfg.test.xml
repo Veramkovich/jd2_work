@@ -13,5 +13,9 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
 
         <mapping class="it.academy.model.Person"/>
+        <mapping class="it.academy.model.ShopUser"/>
+        <mapping class="it.academy.model.Product"/>
+        <mapping class="it.academy.model.ProductPrice"/>
+
     </session-factory>
 </hibernate-configuration>
