@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ProductTest extends BaseTest {
@@ -53,6 +54,60 @@ public class ProductTest extends BaseTest {
 
         //Then
         assertNotNull(id);
+    }
+
+    @Test
+    public void read() {
+        //Given
+        cleanInsert("ProductTest.xml");
+
+        //When
+        Session session = factory.openSession();
+        List<Product> products = session
+                .createQuery("from Product", Product.class)
+                .list();
+
+        //Then
+        assertNotNull(products);
+        assertEquals(3, products.size());
+
+        List<ProductPrice> prices = products.stream()
+                .filter(product -> "2c931081773acfd101773acfd4180002"
+                        .equals(product.getProductId()))
+                .map(Product::getProductPrices)
+                .findFirst()
+                .orElse(null);
+        assertNotNull(prices);
+        assertEquals(1, prices.size());
+
+        deleteDataset();
+        session.close();
+    }
+
+    @Test
+    public void delete() {
+        //Given
+        cleanInsert("ProductTest.xml");
+        Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Product> products = session
+                .createQuery("from Product", Product.class)
+                .list();
+        List<ProductPrice> prices = session
+                .createQuery("from ProductPrice", ProductPrice.class)
+                .list();
+
+        //When
+        products.forEach(session::delete);
+        prices.forEach(session::delete);
+        transaction.commit();
+
+        //Then
+        assertEquals(
+                0,
+                session.createQuery("from Product").list().size()
+        );
+        session.close();
     }
 
 

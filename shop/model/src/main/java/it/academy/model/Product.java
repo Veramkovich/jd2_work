@@ -27,4 +27,8 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<ProductPrice> productPrices;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Promo> promos;
+
 }

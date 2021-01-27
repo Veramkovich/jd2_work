@@ -1,0 +1,23 @@
+<dataset>
+    <T_PRODUCT
+            PRODUCT_ID="2c931081773acfd101773acfd4180000"
+            P_PRODUCT_DESC="512GB"
+            P_PRODUCT_NAME="Apple iPhone 12"/>
+
+    <T_PRODUCT
+            PRODUCT_ID="2c931081773acfd101773acfd4180001"
+            P_PRODUCT_DESC="256GB"
+            P_PRODUCT_NAME="Apple iPhone 11"/>
+
+    <T_PRODUCT
+            PRODUCT_ID="2c931081773acfd101773acfd4180002"
+            P_PRODUCT_DESC="128GB"
+            P_PRODUCT_NAME="Apple iPhone 10"/>
+
+    <T_PRODUCT_PRICE
+            PRICE_ID="2c931081773d5a6201773d5a69900003"
+            P_CURRENCY="0"
+            P_VALUE="5990.99"
+            PRODUCT_ID="2c931081773acfd101773acfd4180002"/>
+
+</dataset>

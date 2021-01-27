@@ -16,6 +16,7 @@
         <mapping class="it.academy.model.ShopUser"/>
         <mapping class="it.academy.model.Product"/>
         <mapping class="it.academy.model.ProductPrice"/>
+        <mapping class="it.academy.model.Promo"/>
 
     </session-factory>
 </hibernate-configuration>
