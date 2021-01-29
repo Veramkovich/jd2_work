@@ -2,8 +2,11 @@ package it.academy.model;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -108,6 +111,34 @@ public class ProductTest extends BaseTest {
                 session.createQuery("from Product").list().size()
         );
         session.close();
+    }
+
+    @Test
+    public void queryProductPrice() {
+        //Give
+        cleanInsert("ProductTest.xml");
+
+        // When
+        final List priceValue = factory.openSession()
+                .createCriteria(ProductPrice.class)
+                .add(Restrictions.eq("priceValue", BigDecimal.valueOf(5990.99)))
+                .list();
+
+        final Session session = factory.openSession();
+        final CriteriaBuilder cb = session.getCriteriaBuilder();
+        final CriteriaQuery<ProductPrice> query = cb.createQuery(ProductPrice.class);
+        query.where(
+                cb.equal(
+                        query.from(ProductPrice.class).get("priceValue"),
+                        BigDecimal.valueOf(5990.99)
+                )
+        );
+
+        final List<ProductPrice> list = session.createQuery(query).list();
+
+        //Then
+        assertEquals(1, priceValue.size());
+        assertEquals(1, list.size());
     }
 
 

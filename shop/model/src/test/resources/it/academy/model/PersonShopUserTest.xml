@@ -1,0 +1,35 @@
+<dataset>
+
+    <T_SHOP_USER SHOP_USER_ID="2c968187773a55a101773a55a3a01000"
+                 PASSWORD="12345678"
+                 USER_NAME="guest1"/>
+
+    <T_SHOP_USER SHOP_USER_ID="2c968187773a55a101773a55a3a02000"
+                 PASSWORD="12345678"
+                 USER_NAME="user2"/>
+
+    <T_SHOP_USER SHOP_USER_ID="2c968187773a55a101773a55a3a03000"
+                 PASSWORD="12345678"
+                 USER_NAME="super_user_3"/>
+
+    <T_PERSON P_ID="2c968187773a55a101773a55a3a00001"
+              P_NAME="Natasha"
+              P_SEC_NAME="Ivanova"
+              P_BIRTH_DATE="2001-01-01"
+              SHOP_USER_ID="2c968187773a55a101773a55a3a01000"
+    />
+    <T_PERSON P_ID="2c968187773a55a101773a55a3a00002"
+              P_NAME="Ivan"
+              P_SEC_NAME="Petrov"
+              P_BIRTH_DATE="2004-04-04"
+              SHOP_USER_ID="2c968187773a55a101773a55a3a02000"
+    />
+    <T_PERSON P_ID="2c968187773a55a101773a55a3a00003"
+              P_NAME="Tania"
+              P_SEC_NAME="Petrova"
+              P_BIRTH_DATE="2005-05-05"
+              SHOP_USER_ID="2c968187773a55a101773a55a3a03000"
+    />
+
+
+</dataset>
