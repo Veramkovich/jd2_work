@@ -6,15 +6,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ApplicationContext ac =
                 new ClassPathXmlApplicationContext("beans.xml");
 
-        final Object promoService = ac.getBean("promoService");
+        final PromoService promoService = (PromoService) ac.getBean("promoService");
 
         System.out.println(promoService);
 
-        ((PromoService) promoService).printPromo();
+        promoService.printPromo();
 
+        ((ClassPathXmlApplicationContext) ac).close();
     }
 }
