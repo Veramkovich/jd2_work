@@ -20,9 +20,15 @@ public class PromoDaoImpl implements PromoDao {
     public List<Promo> findAllPromo() {
         Promo promo1 = new Promo();
         promo1.setDescription("Promo1");
+        promo1.setPromoId("1");
+
         Promo promo2 = new Promo();
         promo2.setDescription("Promo2");
+        promo2.setPromoId("2");
 
-        return List.of(promo1, promo2);
+        Promo promo3 = new Promo();
+        promo3.setDescription("Promo3");
+        promo3.setPromoId("3");
+        return List.of(promo1, promo2, promo3);
     }
 }
