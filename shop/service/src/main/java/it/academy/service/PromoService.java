@@ -12,7 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -50,11 +49,6 @@ public class PromoService {
     }
 
     public List<Promo> findAllPromo() {
-        return promoDao.findAllPromo()
-                .stream()
-                .map(promo -> {
-                    promo.setDescription("New Promo");
-                    return promo;
-                }).collect(Collectors.toList());
+        return promoDao.findAllPromo();
     }
 }

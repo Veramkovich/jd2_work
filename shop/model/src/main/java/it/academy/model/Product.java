@@ -1,5 +1,7 @@
 package it.academy.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,8 +11,10 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "T_PRODUCT")
+@Builder
 public class Product {
 
     @GeneratedValue(generator = "uuid-generator")
