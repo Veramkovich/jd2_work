@@ -3,7 +3,9 @@ package it.academy.dao;
 import it.academy.model.Product;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -30,5 +32,27 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<Product> findAllProducts() {
         return products;
+    }
+
+    @Override
+    public Product read(String id) {
+        return products.stream()
+                .filter(product -> product.getProductId().equals(id))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public String save(Product product) {
+        int maxId = products.stream()
+                .max((o1, o2) ->
+                        Integer.valueOf(o1.getProductId()) - Integer.valueOf(o2.getProductId()))
+                .map(product1 -> Integer.valueOf(product1.getProductId()))
+                .get();
+        final String productId = String.valueOf(++maxId);
+        product.setProductId(productId);
+        products = new ArrayList<>(products);
+        products.add(product);
+        return productId;
     }
 }

@@ -64,6 +64,7 @@
                 <configuration>
                     <username>tomcat</username>
                     <password>tomcat</password>
+                    <update>true</update>
                 </configuration>
             </plugin>
         </plugins>
