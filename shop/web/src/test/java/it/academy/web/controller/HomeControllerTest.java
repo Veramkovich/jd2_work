@@ -1,10 +1,11 @@
 package it.academy.web.controller;
 
-import it.academy.web.WebShopConfiguration;
+import it.academy.web.WebShopTestConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -19,9 +20,10 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@ContextConfiguration(classes = WebShopConfiguration.class)
+@ContextConfiguration(classes = WebShopTestConfiguration.class)
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class HomeControllerTest {
 
     @Autowired
