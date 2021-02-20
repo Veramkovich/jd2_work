@@ -11,7 +11,6 @@ public class ProductService {
     @Autowired
     ProductDao productDao;
 
-
     public Product findProductById(String id) {
         return productDao.read(id);
     }
