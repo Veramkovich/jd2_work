@@ -7,7 +7,7 @@ import org.springframework.context.annotation.*;
 import static org.mockito.Mockito.mock;
 
 @Configuration
-@ComponentScan(basePackages = "it.academy")
+@ComponentScan(basePackages = "it.academy", lazyInit = true)
 @Profile("test")
 public class WebShopTestConfiguration {
 
