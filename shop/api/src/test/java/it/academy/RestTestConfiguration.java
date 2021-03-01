@@ -10,7 +10,7 @@ import org.springframework.context.annotation.*;
 import java.util.List;
 
 @Configuration
-@ComponentScan(basePackages = "it.academy.rest")
+@ComponentScan(basePackages = "it.academy")
 @Profile("test")
 public class RestTestConfiguration {
 

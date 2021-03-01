@@ -13,5 +13,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="it.academy.model.Person"/>
+        <mapping class="it.academy.model.VisitorCount"/>
+
     </session-factory>
 </hibernate-configuration>
