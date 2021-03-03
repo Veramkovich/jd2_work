@@ -48,6 +48,15 @@ public class PromoTest extends BaseTest {
         assertNotNull(save22);
         assertNotNull(save33);
 
+        Transaction transactionDelete = session.beginTransaction();
+        session.delete(product11);
+        session.delete(product22);
+        session.delete(product33);
+        session.delete(promo1);
+        session.delete(promo2);
+        session.delete(promo3);
+        transactionDelete.commit();
+
         session.close();
     }
 
