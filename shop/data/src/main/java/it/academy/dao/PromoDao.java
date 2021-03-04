@@ -7,4 +7,8 @@ import java.util.List;
 public interface PromoDao {
 
     List<Promo> findAllPromo();
+
+    int getPromoCount();
+
+    void create(Promo promo);
 }

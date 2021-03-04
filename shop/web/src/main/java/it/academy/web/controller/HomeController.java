@@ -1,5 +1,6 @@
 package it.academy.web.controller;
 
+import it.academy.dto.PromoAndProductDto;
 import it.academy.service.PromoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,10 @@ public class HomeController {
             Model model
     ) {
         model.addAttribute("promoList", promoService.findAllPromo());
+        PromoAndProductDto dto =
+                promoService.findPromoAndProduct();
+
+        model.addAttribute("promoAndProduct", dto);
         return "index";
     }
 

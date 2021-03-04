@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp"/>
     <h1>Please take a look on our promo!</h1>
+    <h2>We have ${promoAndProduct.promoCount} promos and </h2>
+    <h2>${promoAndProduct.productCount} products available for you</h2>
     <!-- Promo product list -->
     <table class="table">
       <thead>

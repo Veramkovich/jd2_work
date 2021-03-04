@@ -1,6 +1,8 @@
 package it.academy.service;
 
+import it.academy.dao.ProductDao;
 import it.academy.dao.PromoDao;
+import it.academy.dto.PromoAndProductDto;
 import it.academy.model.Promo;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class PromoService {
     @Autowired
     @Qualifier("promoDaoImpl")
     private PromoDao promoDao;
+
+    @Autowired
+    private ProductDao productDao;
 
     static PromoService create() {
         System.out.println("Call create()");
@@ -48,7 +54,20 @@ public class PromoService {
         promoDao.findAllPromo().forEach(System.out::println);
     }
 
+    @Transactional
     public List<Promo> findAllPromo() {
         return promoDao.findAllPromo();
+    }
+
+    @Transactional
+    public PromoAndProductDto findPromoAndProduct() {
+        PromoAndProductDto dto = new PromoAndProductDto();
+        int promoCount = promoDao.getPromoCount();
+        int productCount = productDao.getProductCount();
+
+        dto.setPromoCount(promoCount);
+        dto.setProductCount(productCount);
+
+        return dto;
     }
 }

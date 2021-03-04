@@ -11,4 +11,14 @@ public class PromoDaoNewImpl implements PromoDao {
     public List<Promo> findAllPromo() {
         return null;
     }
+
+    @Override
+    public int getPromoCount() {
+        return 0;
+    }
+
+    @Override
+    public void create(Promo promo1) {
+
+    }
 }

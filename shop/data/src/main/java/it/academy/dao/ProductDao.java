@@ -11,4 +11,6 @@ public interface ProductDao {
     Product read(String id);
 
     String save(Product product);
+
+    int getProductCount();
 }
