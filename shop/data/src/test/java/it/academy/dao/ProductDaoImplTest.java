@@ -1,9 +1,11 @@
 package it.academy.dao;
 
 import org.junit.Test;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-@ContextConfiguration
+@ContextConfiguration(classes = DaoConfigurationTest.class)
+@ActiveProfiles("test")
 public class ProductDaoImplTest {
 
     @Test

@@ -13,13 +13,13 @@ public class VisitorCountService {
     @Autowired
     private VisitorCountDao visitorCountDao;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public int readCount() {
         final VisitorCount visitorCount = visitorCountDao.readCount(1);
         return visitorCount == null ? 0 : visitorCount.getCount();
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public int updateCount() {
         int id = 1;
         VisitorCount visitorCount = visitorCountDao.readCount(id);

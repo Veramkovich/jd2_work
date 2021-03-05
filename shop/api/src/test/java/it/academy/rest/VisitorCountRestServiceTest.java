@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
-@ContextConfiguration(classes = RestTestConfiguration.class)
+@ContextConfiguration(classes = {RestTestConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
@@ -43,10 +43,11 @@ public class VisitorCountRestServiceTest {
 
     @Test
     public void updateVisitorCount() throws Exception {
+        int threadCount = 1000;
         final ExecutorService executorService =
-                Executors.newFixedThreadPool(1000);
+                Executors.newFixedThreadPool(threadCount);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
                     mockMvc
@@ -56,12 +57,12 @@ public class VisitorCountRestServiceTest {
                 }
             });
         }
-
+        Thread.sleep(5_000);
         final MvcResult mvcResult = mockMvc
                 .perform(get("/visitor_count")).andReturn();
         final String content = mvcResult.getResponse().getContentAsString();
         log.info(content);
-        assertEquals("1000", content);
+        assertEquals(String.valueOf(threadCount), content);
     }
 
     @Test

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Arrays;
 
 @Configuration
-@ComponentScan("it.academy")
+@ComponentScan({"it.academy.dto", "it.academy.service"})
 public class AppConfig {
 
     public static void main(String[] args) {

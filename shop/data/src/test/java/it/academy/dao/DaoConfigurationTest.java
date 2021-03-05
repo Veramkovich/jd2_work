@@ -1,40 +1,24 @@
-package it.academy;
+package it.academy.dao;
 
 import com.mysql.cj.jdbc.Driver;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import it.academy.dao.ProductDao;
-import it.academy.dao.ProductDaoImpl;
-import it.academy.model.Product;
-import it.academy.service.ProductService;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.List;
 
 @PropertySource(value = "classpath:datasource-test.properties")
 @Configuration
-@ComponentScan(basePackages = "it.academy")
 @Profile("test")
-public class RestTestConfiguration {
+@ComponentScan("it.academy.dao")
+@EnableTransactionManagement
+public class DaoConfigurationTest {
 
     @Autowired
     Environment env;
-
-    @Bean
-    @Primary
-    public ProductService productService() {
-        System.out.println("Call mock productService()");
-        ProductService productService =
-                Mockito.mock(ProductService.class);
-
-        Mockito.when(productService.findAllProducts())
-                .thenReturn(List.of(new Product()));
-        return productService;
-    }
 
     @Bean
     @Primary
@@ -47,12 +31,13 @@ public class RestTestConfiguration {
         hikariConfig.setMaximumPoolSize(100);
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+        /*dataSource.setUrl(env.getProperty("datasource.url"));
+        dataSource.setDriverClassName(Driver.class.getName());
+        dataSource.setUsername(env.getProperty("datasource.username"));
+        dataSource.setPassword(env.getProperty("datasource.password"));
+        dataSource.setInitialSize(20);
+        dataSource.setMaxTotal(30);*/
         return dataSource;
-    }
-
-    @Bean
-    public ProductDao productDao() {
-        return Mockito.mock(ProductDaoImpl.class);
     }
 
 }

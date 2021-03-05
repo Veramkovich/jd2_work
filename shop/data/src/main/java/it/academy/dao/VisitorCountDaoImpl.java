@@ -1,6 +1,7 @@
 package it.academy.dao;
 
 import it.academy.model.VisitorCount;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class VisitorCountDaoImpl implements VisitorCountDao {
     public VisitorCount readCount(int id) {
         final Session currentSession = sessionFactory.getCurrentSession();
         VisitorCount visitorCount =
-                currentSession.get(VisitorCount.class, id);
+                currentSession.get(VisitorCount.class, id, LockMode.PESSIMISTIC_WRITE);
         return visitorCount;
     }
 

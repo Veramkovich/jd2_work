@@ -1,8 +1,9 @@
 package it.academy.dao;
 
 import com.mysql.cj.jdbc.Driver;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import it.academy.model.*;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,13 +30,14 @@ public class DaoConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl(env.getProperty("datasource.url"));
-        dataSource.setDriverClassName(Driver.class.getName());
-        dataSource.setUsername(env.getProperty("datasource.username"));
-        dataSource.setPassword(env.getProperty("datasource.password"));
-        dataSource.setInitialSize(20);
-        dataSource.setMaxTotal(30);
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl(env.getProperty("datasource.url"));
+        hikariConfig.setDriverClassName(Driver.class.getName());
+        hikariConfig.setUsername(env.getProperty("datasource.username"));
+        hikariConfig.setPassword(env.getProperty("datasource.password"));
+        hikariConfig.setMaximumPoolSize(100);
+
+        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
         return dataSource;
     }
 
@@ -51,7 +53,8 @@ public class DaoConfiguration {
         Properties properties = new Properties();
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect");
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.hbm2ddl.auto",
+                env.getProperty("hibernate.hbm2ddl.auto"));
 
         sessionFactoryBean.setHibernateProperties(properties);
         return sessionFactoryBean;
