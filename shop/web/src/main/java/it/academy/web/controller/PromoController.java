@@ -9,8 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Controller
 public class PromoController {
+
+    public static final Logger log =
+            Logger.getLogger(PromoController.class.getName());
+
 
     @GetMapping("/promo")
     public String showPromoPage(Model model) {
@@ -23,7 +30,9 @@ public class PromoController {
             @Valid @ModelAttribute("promoDto") PromoDto promoDto,
             BindingResult bindingResult
     ) {
+        log.info("Call: addNewPromo");
         if (bindingResult.hasErrors()) {
+            log.log(Level.SEVERE, "Form has errors: " + bindingResult.getFieldErrors());
             return "add-promo";
         }
         return "index";

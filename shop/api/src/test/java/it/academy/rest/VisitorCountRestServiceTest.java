@@ -57,7 +57,7 @@ public class VisitorCountRestServiceTest {
                 }
             });
         }
-        Thread.sleep(5_000);
+        Thread.sleep(10_000);
         final MvcResult mvcResult = mockMvc
                 .perform(get("/visitor_count")).andReturn();
         final String content = mvcResult.getResponse().getContentAsString();

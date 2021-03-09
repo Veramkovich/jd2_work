@@ -36,9 +36,7 @@ public class DaoConfiguration {
         hikariConfig.setUsername(env.getProperty("datasource.username"));
         hikariConfig.setPassword(env.getProperty("datasource.password"));
         hikariConfig.setMaximumPoolSize(100);
-
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-        return dataSource;
+        return new HikariDataSource(hikariConfig);
     }
 
     @Bean

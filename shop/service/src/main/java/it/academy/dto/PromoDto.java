@@ -1,18 +1,22 @@
 package it.academy.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class PromoDto {
 
-    @NotEmpty
+    @NotBlank
+    @Size(min = 5, max = 50)
     private String productName;
 
-    @NotEmpty
+    @NotBlank
+    @Size(min = 5, max = 50)
     private String description;
 
-    @NotEmpty
+    @NotBlank
+    @Size(min = 5, max = 50)
     private String promoDescription;
 
 }
