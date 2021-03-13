@@ -2,6 +2,7 @@ package it.academy.web.controller;
 
 import it.academy.dto.PromoDto;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,7 @@ public class PromoController {
     }
 
     @PostMapping("/promo/add")
+    @Secured("ROLE_ADMIN")
     public String addNewPromo(
             @Valid @ModelAttribute("promoDto") PromoDto promoDto,
             BindingResult bindingResult
